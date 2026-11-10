@@ -52,12 +52,21 @@ details summary{cursor:pointer;color:var(--muted);font-size:12px}
 details ul{color:var(--muted);font-size:12px;padding-left:1.2em}
 footer{color:var(--muted);font-size:12px}
 a{color:var(--c18)}
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px 10px;white-space:nowrap}
+.btn{font-size:13px;color:#fff;background:var(--c18);border:0;border-radius:8px;padding:7px 14px;text-decoration:none;white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.btn[aria-disabled="true"]{background:var(--muted);cursor:default}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
+  <div class="top">
   <h1>iPhone 18 vs iPhone 17 — Pro &amp; Pro Max launch sell-out over the same selling days</h1>
+  <div class="meta" id="meta"></div>
+  </div>
   <p class="sub" id="subtitle">Erajaya Region 5 retail · Non PO device sales · Pro and Pro Max only</p>
   <p class="take" id="takeaway">Loading…</p>
 </header>
@@ -119,12 +128,15 @@ a{color:var(--c18)}
 <li>Only iPhone 17 Pro / Pro Max and iPhone 18 Pro / Pro Max are counted, because iPhone 18 is only sold in those two models. iPhone 17 base, 17E and Air are left out.</li>
 <li>Filters: Model type detail picks Pro or Pro Max for both series. Business unit, LOB and TSH filter both series by each store's current mapping.</li>
 <li>Units are net quantity (returns deducted). Value is total nett amount including tax. ASP = value ÷ units.</li>
-<li>This page is a snapshot taken on <span id="gen-date">—</span>. The raw data is in <a href="data/data.json">data/data.json</a> and <a href="data/stores.csv">data/stores.csv</a>; the Excel version is in <a href="downloads/iPhone18_vs_iPhone17_ProProMax_Region5.xlsx">downloads/</a>.</li>
+<li>Data imported from BigQuery on <span id="gen-date">—</span>. Press <b>Refresh data</b> (top right), then <b>Run workflow</b> on GitHub; after about 2 minutes reload this page. The Excel file in downloads/ is not refreshed by the button. The raw data is in <a href="data/data.json">data/data.json</a> and <a href="data/stores.csv">data/stores.csv</a>; the Excel version is in <a href="downloads/iPhone18_vs_iPhone17_ProProMax_Region5.xlsx">downloads/</a>.</li>
 </ul></details>
 <footer id="footer"></footer>
 </div>
 
 <script>
+// ===== Config: your repo, so the "Refresh data" button opens its workflow. Change it if your repo has another name. =====
+const GITHUB_REPO = "rcm5DaMon/ip18-vs-ip17";
+
 const fInt = d3.format(','), f1 = d3.format(',.1f'), f2 = d3.format(',.2f');
 const fPct = (v) => (v == null || !isFinite(v) ? '–' : (v > 0 ? '+' : '') + d3.format('.1%')(v));
 const fShare = (v) => (v == null || !isFinite(v) ? '–' : d3.format('.1%')(v));
@@ -302,11 +314,20 @@ document.querySelectorAll('[data-tree]').forEach((b) => b.addEventListener('clic
 }));
 let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { const D = daily(); chart($('cum-chart'), D, 'cum'); chart($('daily-chart'), D, 'daily'); }, 150); });
 
-fetch('data/data.json').then((r) => r.json()).then((d) => {
+fetch('data/data.json', {cache: 'no-store'}).then((r) => r.json()).then((d) => {
   DATA = d;
-  $('gen-date').textContent = d.meta.generated;
+  $('gen-date').textContent = d.meta.refreshed_at ? d.meta.refreshed_at + ' WIB' : d.meta.generated;
+  const m = $('meta'); m.replaceChildren();
+  const chip = (t) => { const s = document.createElement('span'); s.className = 'chip'; s.textContent = t; m.append(s); };
+  chip('Sales to ' + d.meta.end18);
+  chip('Imported ' + (d.meta.refreshed_at || d.meta.generated) + (d.meta.refreshed_at ? ' WIB' : ''));
+  const b = document.createElement(GITHUB_REPO ? 'a' : 'span'); b.className = 'btn';
+  if (GITHUB_REPO) { b.href = 'https://github.com/' + GITHUB_REPO + '/actions/workflows/refresh.yml'; b.target = '_blank'; b.rel = 'noopener'; b.textContent = 'Refresh data ↗';
+    b.title = 'Opens GitHub Actions. Press "Run workflow", wait about 2 minutes, then reload this page.'; }
+  else { b.setAttribute('aria-disabled', 'true'); b.textContent = 'Refresh data'; b.title = 'Set GITHUB_REPO in index.html'; }
+  m.append(b);
   $('subtitle').textContent = 'Erajaya Region 5 retail · Non PO device sales · Pro and Pro Max only · iPhone 17: ' + d.meta.launch17 + ' – ' + d.meta.end17 + ' · iPhone 18: ' + d.meta.launch18 + ' – ' + d.meta.end18 + ' (' + d.meta.window_days + ' selling days each)';
-  $('footer').textContent = 'Snapshot ' + d.meta.generated + ' · ' + d.meta.source;
+  $('footer').textContent = 'Imported ' + (d.meta.refreshed_at || d.meta.generated) + ' · ' + d.meta.source;
   render();
 }).catch((e) => { $('takeaway').textContent = 'Could not load data/data.json: ' + e.message; });
 </script>
