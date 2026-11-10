@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iPhone 18 vs iPhone 17 — Pro &amp; Pro Max launch sell-out · Region 5</title>
+<script src="vendor/d3.min.js"></script>
+<style>
+:root{--bg:#f7f7f5;--panel:#fff;--fg:#1d1d1f;--muted:#6b6b70;--line:#e3e3e0;--ok:#1a7f45;--bad:#c0362c;--warn:#a26200;--c17:#9aa0a6;--c18:#2563eb;--grid:#ececea;--lvl0:#eef2fb;--lvl1:#f6f8fd}
+@media (prefers-color-scheme: dark){:root{--bg:#141416;--panel:#1d1d20;--fg:#f2f2f2;--muted:#a0a0a8;--line:#323238;--ok:#4cc27e;--bad:#ef6b5f;--warn:#e0a640;--c17:#7b8088;--c18:#6ea0ff;--grid:#2a2a2f;--lvl0:#22283a;--lvl1:#1f2330}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 20px 60px;display:flex;flex-direction:column;gap:22px}
+h1{font:400 28px/1.2 Georgia,"Times New Roman",serif;margin:0}
+h2{font-size:17px;margin:0 0 8px}
+.sub,.note{color:var(--muted);font-size:12px;margin:4px 0 0}
+.take{font-size:15px;margin:10px 0 0;max-width:75ch}
+.take b{font-variant-numeric:tabular-nums}
+.up{color:var(--ok)}.down{color:var(--bad)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+.filters{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.filters label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+select,button{font:inherit;font-size:13px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+button{cursor:pointer}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.card h3{margin:0;font-size:12px;font-weight:500;color:var(--muted)}
+.big{font:400 30px/1.15 Georgia,serif;margin:6px 0;font-variant-numeric:tabular-nums}
+.vs{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-bottom:6px}
+.sw{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.chart{position:relative;min-height:260px}
+.chart text{fill:var(--muted);font-size:11px}
+.chart .domain,.chart .tick line{stroke:var(--line)}
+.chart .grid line{stroke:var(--grid)}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,.12);border-radius:8px;padding:8px 10px;font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums;z-index:3}
+.tip div{color:var(--muted)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.tblwrap{overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.tall{max-height:620px}
+table{border-collapse:collapse;width:100%;font-size:12px;font-variant-numeric:tabular-nums}
+th{position:sticky;top:0;background:var(--panel);text-align:right;font-weight:600;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:1}
+td{text-align:right;padding:5px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+th.l,td.l{text-align:left}
+tr.grp{cursor:pointer}
+tr.grp td{font-weight:600}
+tr.lvl0 td{background:var(--lvl0)}
+tr.lvl1 td{background:var(--lvl1)}
+tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+td.i1{padding-left:24px}td.i2{padding-left:44px}
+.flag{color:var(--warn)}
+details summary{cursor:pointer;color:var(--muted);font-size:12px}
+details ul{color:var(--muted);font-size:12px;padding-left:1.2em}
+footer{color:var(--muted);font-size:12px}
+a{color:var(--c18)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>iPhone 18 vs iPhone 17 — Pro &amp; Pro Max launch sell-out over the same selling days</h1>
+  <p class="sub" id="subtitle">Erajaya Region 5 retail · Non PO device sales · Pro and Pro Max only</p>
+  <p class="take" id="takeaway">Loading…</p>
+</header>
+
+<section class="panel filters" aria-label="Filters">
+  <label>Model type detail<select id="f-model"><option value="">Pro + Pro Max</option><option value="PRO">Pro only</option><option value="PRO MAX">Pro Max only</option></select></label>
+  <label>Business unit<select id="f-bu"></select></label>
+  <label>LOB<select id="f-lob"></select></label>
+  <label>TSH<select id="f-tsh"></select></label>
+  <button id="f-reset" type="button">Reset filters</button>
+</section>
+
+<section class="cards">
+  <div class="panel card"><h3 id="k1-title">Pro + Pro Max units · iPhone 18</h3><div class="big" id="k-u18">—</div><div class="vs">iPhone 17: <span id="k-u17">—</span> · <span id="k-gu">—</span></div></div>
+  <div class="panel card"><h3>Sales value incl. tax · iPhone 18 (Rp bn)</h3><div class="big" id="k-v18">—</div><div class="vs">iPhone 17: <span id="k-v17">—</span> · <span id="k-gv">—</span></div></div>
+  <div class="panel card"><h3>Average selling price · iPhone 18 (Rp mio)</h3><div class="big" id="k-a18">—</div><div class="vs">iPhone 17: <span id="k-a17">—</span> · <span id="k-ga">—</span></div></div>
+  <div class="panel card"><h3>Pro Max units · iPhone 18</h3><div class="big" id="k-m18">—</div><div class="vs">iPhone 17: <span id="k-m17">—</span> · <span id="k-gm">—</span></div></div>
+</section>
+
+<section class="panel">
+  <h2>Cumulative units by selling day</h2>
+  <div class="legend"><span><i class="sw" style="background:var(--c17)"></i>iPhone 17 (from 17 Oct 2025)</span><span><i class="sw" style="background:var(--c18)"></i>iPhone 18 (from 16 Oct 2026)</span></div>
+  <div class="chart" id="cum-chart"></div>
+  <p class="note">For Region 5 as a whole, iPhone 18 opened much stronger (day 1 and the first week), and iPhone 17's window ends with a large spike on days 23–25 (8–10 Nov 2025), which narrows the gap at the end.</p>
+</section>
+
+<section class="panel">
+  <h2>Units per selling day</h2>
+  <div class="chart" id="daily-chart"></div>
+</section>
+
+<section class="panel">
+  <h2>Breakdown</h2>
+  <div class="tools">
+    <select id="view-select" aria-label="Break down by"><option value="bu">Business unit</option><option value="ch">Channel</option><option value="lob">LOB</option><option value="tsh">TSH</option></select>
+    <span class="note">Growth compares iPhone 18 with iPhone 17 over the same days, within the filters above. Stores = stores that sold iPhone 18.</span>
+  </div>
+  <div class="tblwrap"><table id="tbl-break"><thead></thead><tbody></tbody></table></div>
+</section>
+
+<section class="panel">
+  <h2>By LOB → TSH → store</h2>
+  <div class="tools">
+    <select id="store-sort" aria-label="Sort rows"><option value="u18">Sort: iPhone 18 units</option><option value="du">Sort: biggest drop first</option><option value="u17">Sort: iPhone 17 units</option></select>
+    <button type="button" data-tree="all">Expand all</button>
+    <button type="button" data-tree="tsh">Show LOB + TSH</button>
+    <button type="button" data-tree="lob">Show LOB only</button>
+    <span class="note">Click a LOB or TSH row to open or close it.</span>
+  </div>
+  <div class="tblwrap tall"><table id="tbl-tree">
+    <thead><tr><th class="l">LOB / TSH / Store</th><th class="l">Site</th><th class="l">Channel</th><th class="l">Status</th><th>Units iP17</th><th>Units iP18</th><th>Δ units</th><th>Growth</th><th>Pro iP17</th><th>Pro iP18</th><th>Pro Max iP17</th><th>Pro Max iP18</th><th>Value iP17 (Rp mio)</th><th>Value iP18 (Rp mio)</th><th>Value growth</th><th class="l">Flag</th></tr></thead>
+    <tbody></tbody></table></div>
+</section>
+
+<details class="panel"><summary>How the numbers are worked out</summary>
+<ul>
+<li>Source: BigQuery <code>e-smart-433113.region_data.sales_all_retail</code>, rows with ket_po = Non PO and Product_Category = Device. PO rows are pre-order bookings that are reversed when the phone is billed, so Non PO already holds the sale.</li>
+<li>Same selling days: day 1 is each series' first sale. iPhone 18 covers 16 Oct – 9 Nov 2026 (25 days); iPhone 17 covers the same 25 days from 17 Oct 2025 (to 10 Nov 2025).</li>
+<li>Only iPhone 17 Pro / Pro Max and iPhone 18 Pro / Pro Max are counted, because iPhone 18 is only sold in those two models. iPhone 17 base, 17E and Air are left out.</li>
+<li>Filters: Model type detail picks Pro or Pro Max for both series. Business unit, LOB and TSH filter both series by each store's current mapping.</li>
+<li>Units are net quantity (returns deducted). Value is total nett amount including tax. ASP = value ÷ units.</li>
+<li>This page is a snapshot taken on <span id="gen-date">—</span>. The raw data is in <a href="data/data.json">data/data.json</a> and <a href="data/stores.csv">data/stores.csv</a>; the Excel version is in <a href="downloads/iPhone18_vs_iPhone17_ProProMax_Region5.xlsx">downloads/</a>.</li>
+</ul></details>
+<footer id="footer"></footer>
+</div>
+
+<script>
+const fInt = d3.format(','), f1 = d3.format(',.1f'), f2 = d3.format(',.2f');
+const fPct = (v) => (v == null || !isFinite(v) ? '–' : (v > 0 ? '+' : '') + d3.format('.1%')(v));
+const fShare = (v) => (v == null || !isFinite(v) ? '–' : d3.format('.1%')(v));
+const gr = (a, b) => (b ? a / b - 1 : null);
+const tone = (el, v) => { el.classList.toggle('up', v > 0); el.classList.toggle('down', v < 0); };
+const $ = (id) => document.getElementById(id);
+const state = {model: '', bu: '', lob: '', tsh: '', view: 'bu', sort: 'u18', closed: new Set()};
+let DATA;
+
+function storeVals(s) {
+  const p = state.model !== 'PRO MAX', m = state.model !== 'PRO';
+  const pro17 = p ? s.u17p : 0, pro18 = p ? s.u18p : 0, pm17 = m ? s.u17m : 0, pm18 = m ? s.u18m : 0;
+  const v17 = (p ? s.v17p : 0) + (m ? s.v17m : 0), v18 = (p ? s.v18p : 0) + (m ? s.v18m : 0);
+  return {pro17, pro18, pm17, pm18, u17: pro17 + pm17, u18: pro18 + pm18, v17, v18};
+}
+const inScope = (r) => (!state.bu || r.bu === state.bu) && (!state.lob || r.lob === state.lob) && (!state.tsh || r.tsh === state.tsh);
+function agg(rows) {
+  const o = {n18: 0, u17: 0, u18: 0, pro17: 0, pro18: 0, pm17: 0, pm18: 0, v17: 0, v18: 0};
+  for (const r of rows) { for (const k in o) if (k !== 'n18') o[k] += r[k]; if (r.u18 > 0) o.n18++; }
+  o.du = o.u18 - o.u17; o.gu = gr(o.u18, o.u17); o.gpro = gr(o.pro18, o.pro17); o.gpm = gr(o.pm18, o.pm17); o.gv = gr(o.v18, o.v17);
+  o.a17 = o.u17 ? o.v17 / o.u17 : null; o.a18 = o.u18 ? o.v18 / o.u18 : null; o.ga = o.a17 && o.a18 ? o.a18 / o.a17 - 1 : null;
+  return o;
+}
+function rows() { return DATA.stores.filter(inScope).map((s) => Object.assign({}, s, storeVals(s))).filter((r) => r.u17 || r.u18); }
+
+function fillSelect(sel, vals, allLabel, cur) {
+  sel.replaceChildren(new Option(allLabel, ''), ...vals.map((v) => new Option(v, v)));
+  sel.value = vals.includes(cur) ? cur : '';
+}
+function drawFilters() {
+  const S = DATA.stores;
+  fillSelect($('f-bu'), [...new Set(S.map((s) => s.bu))].sort(), 'All business units', state.bu);
+  fillSelect($('f-lob'), [...new Set(S.filter((s) => !state.bu || s.bu === state.bu).map((s) => s.lob))].sort(), 'All LOB', state.lob);
+  fillSelect($('f-tsh'), [...new Set(S.filter((s) => (!state.bu || s.bu === state.bu) && (!state.lob || s.lob === state.lob)).map((s) => s.tsh))].sort(), 'All TSH', state.tsh);
+  $('f-model').value = state.model;
+}
+
+function drawSummary(R) {
+  const t = agg(R);
+  const set = (id, txt, v) => { const el = $(id); el.textContent = txt; if (v !== undefined) tone(el, v); };
+  const label = state.model === 'PRO' ? 'Pro' : state.model === 'PRO MAX' ? 'Pro Max' : 'Pro + Pro Max';
+  $('k1-title').textContent = label + ' units · iPhone 18';
+  set('k-u18', fInt(t.u18)); set('k-u17', fInt(t.u17)); set('k-gu', fPct(t.gu), t.gu);
+  set('k-v18', f1(t.v18 / 1000)); set('k-v17', f1(t.v17 / 1000)); set('k-gv', fPct(t.gv), t.gv);
+  set('k-a18', t.a18 == null ? '–' : f2(t.a18)); set('k-a17', t.a17 == null ? '–' : f2(t.a17)); set('k-ga', fPct(t.ga), t.ga);
+  set('k-m18', fInt(t.pm18)); set('k-m17', fInt(t.pm17)); set('k-gm', fPct(t.gpm), t.gpm);
+  const tk = $('takeaway'); tk.replaceChildren();
+  const b = (txt, v) => { const e = document.createElement('b'); e.textContent = txt; if (v !== undefined) tone(e, v); return e; };
+  tk.append('In the first ', b(DATA.meta.window_days), ' selling days iPhone 18 ' + label + ' sold ', b(fInt(t.u18)), ' units against ', b(fInt(t.u17)),
+    ' for iPhone 17 ' + label + ' (', b(fPct(t.gu), t.gu), '), while sales value moved ', b(fPct(t.gv), t.gv), '.');
+  const parts = [state.bu, state.lob, state.tsh].filter(Boolean);
+  if (parts.length) tk.append(' Filtered to ' + parts.join(' · ') + '.');
+}
+
+function daily() {
+  const D = DATA.daily.filter((x) => inScope(x) && (!state.model || x.mdl === state.model));
+  const n = DATA.meta.window_days, out = [];
+  for (let i = 0; i < n; i++) out.push({day: i + 1, u17: 0, u18: 0});
+  for (const x of D) x.d.forEach((v, i) => { out[i][x.ser === '17' ? 'u17' : 'u18'] += v; });
+  let c17 = 0, c18 = 0;
+  const d17 = new Date(DATA.meta.launch17 + 'T00:00:00Z'), d18 = new Date(DATA.meta.launch18 + 'T00:00:00Z');
+  const fmtD = d3.utcFormat('%d %b %Y');
+  for (const o of out) { c17 += o.u17; c18 += o.u18; o.c17 = c17; o.c18 = c18;
+    o.date17 = fmtD(new Date(d17.getTime() + (o.day - 1) * 864e5)); o.date18 = fmtD(new Date(d18.getTime() + (o.day - 1) * 864e5)); }
+  return out;
+}
+function chart(el, data, mode) {
+  el.replaceChildren();
+  const k17 = mode === 'cum' ? 'c17' : 'u17', k18 = mode === 'cum' ? 'c18' : 'u18';
+  const W = Math.max(300, el.clientWidth), H = 270, mt = 12, mb = 28, mr = 26;
+  const svg = d3.select(el).append('svg').attr('width', W).attr('height', H).attr('role', 'img').attr('aria-label', (mode === 'cum' ? 'Cumulative' : 'Daily') + ' units by selling day');
+  const ymax = d3.max(data, (r) => Math.max(r[k17], r[k18])) || 1;
+  const y = d3.scaleLinear().domain([Math.min(0, d3.min(data, (r) => Math.min(r[k17], r[k18]))), ymax]).nice().range([H - mb, mt]);
+  const ya = svg.append('g').call(d3.axisLeft(y).ticks(5).tickFormat(fInt));
+  let ml = 0; ya.selectAll('text').each(function () { ml = Math.max(ml, this.getComputedTextLength()); });
+  ml = Math.ceil(ml) + 14; ya.attr('transform', `translate(${ml},0)`);
+  const x = d3.scaleLinear().domain([1, data.length]).range([ml + 6, W - mr]);
+  svg.append('g').attr('class', 'grid').attr('transform', `translate(${ml},0)`).call(d3.axisLeft(y).ticks(5).tickSize(-(W - mr - ml)).tickFormat('')).call((g) => g.select('.domain').remove());
+  svg.append('g').attr('transform', `translate(0,${H - mb})`).call(d3.axisBottom(x).ticks(Math.min(data.length, Math.floor(W / 70))).tickFormat((v) => 'Day ' + v));
+  const line = (k) => d3.line().x((r) => x(r.day)).y((r) => y(r[k]));
+  svg.append('path').datum(data).attr('fill', 'none').attr('stroke-width', 2).style('stroke', 'var(--c17)').attr('d', line(k17));
+  svg.append('path').datum(data).attr('fill', 'none').attr('stroke-width', 2.5).style('stroke', 'var(--c18)').attr('d', line(k18));
+  const last = data[data.length - 1];
+  [[k17, 'var(--c17)'], [k18, 'var(--c18)']].forEach(([k, c]) => svg.append('circle').attr('cx', x(last.day)).attr('cy', y(last[k])).attr('r', 3.5).style('fill', c));
+  if (mode === 'cum') [[k17, 'var(--c17)'], [k18, 'var(--c18)']].forEach(([k, c]) => svg.append('text').attr('x', x(last.day) - 6).attr('y', y(last[k]) - 8).attr('text-anchor', 'end').style('fill', c).style('font-weight', 600).text(fInt(last[k])));
+  const tip = d3.select(el).append('div').attr('class', 'tip').style('display', 'none');
+  const guide = svg.append('line').attr('y1', mt).attr('y2', H - mb).style('stroke', 'var(--muted)').style('stroke-dasharray', '3 3').style('display', 'none');
+  svg.append('rect').attr('x', ml).attr('width', W - ml - mr).attr('height', H - mb).attr('fill', 'transparent')
+    .on('pointermove', (ev) => {
+      const dn = Math.max(1, Math.min(data.length, Math.round(x.invert(d3.pointer(ev)[0])))); const r = data[dn - 1];
+      guide.style('display', null).attr('x1', x(dn)).attr('x2', x(dn));
+      tip.style('display', null).html('');
+      tip.append('strong').text('Day ' + dn);
+      tip.append('div').text('iPhone 17 (' + r.date17 + '): ' + fInt(r[k17]));
+      tip.append('div').text('iPhone 18 (' + r.date18 + '): ' + fInt(r[k18]));
+      if (mode === 'cum') tip.append('div').text('Growth: ' + fPct(gr(r[k18], r[k17])));
+      const tw = tip.node().offsetWidth; let left = x(dn) + 10; if (left + tw > W) left = x(dn) - tw - 10;
+      tip.style('left', Math.max(0, left) + 'px').style('top', '8px');
+    })
+    .on('pointerleave', () => { tip.style('display', 'none'); guide.style('display', 'none'); });
+}
+
+const VIEWS = {bu: [['bu', 'Business unit']], ch: [['bu', 'Business unit'], ['ch', 'Channel']], lob: [['lob', 'LOB']], tsh: [['lob', 'LOB'], ['tsh', 'TSH']]};
+const NUMS = [['n18', 'Stores', fInt], ['u17', 'Units iP17', fInt], ['u18', 'Units iP18', fInt], ['du', 'Δ units', fInt, 1], ['gu', 'Growth', fPct, 1], ['gpro', 'Growth Pro', fPct, 1], ['gpm', 'Growth Pro Max', fPct, 1], ['v17', 'Value iP17 (Rp mio)', f1], ['v18', 'Value iP18 (Rp mio)', f1], ['gv', 'Value growth', fPct, 1], ['share', 'Share of iP18', fShare]];
+function drawBreakdown(R) {
+  const keys = VIEWS[state.view], last = keys[keys.length - 1][0];
+  const groups = d3.groups(R, (r) => r[last]).map(([k, rs]) => Object.assign(agg(rs), Object.fromEntries(keys.map(([kk]) => [kk, rs[0][kk]]))));
+  const tot = agg(R); groups.forEach((g) => (g.share = tot.u18 ? g.u18 / tot.u18 : null)); tot.share = tot.u18 ? 1 : null;
+  groups.sort(state.view === 'tsh' ? (a, b) => d3.ascending(a.lob, b.lob) || b.u18 - a.u18 : (a, b) => b.u18 - a.u18 || b.u17 - a.u17);
+  const thead = d3.select('#tbl-break thead').html(''), tbody = d3.select('#tbl-break tbody').html('');
+  const hr = thead.append('tr'); keys.forEach(([, l]) => hr.append('th').attr('class', 'l').text(l)); NUMS.forEach(([, l]) => hr.append('th').text(l));
+  const addRow = (g, cls, label) => {
+    const tr = tbody.append('tr').attr('class', cls || null);
+    keys.forEach(([k], i) => tr.append('td').attr('class', 'l').text(label ? (i === 0 ? label : '') : g[k]));
+    NUMS.forEach(([k, , f, s]) => tr.append('td').text(f(g[k])).classed('up', s && g[k] > 0).classed('down', s && g[k] < 0));
+  };
+  groups.forEach((g) => addRow(g)); addRow(tot, 'tot', 'TOTAL');
+}
+
+const TNUM = [['u17', fInt], ['u18', fInt], ['du', fInt, 1], ['gu', fPct, 1], ['pro17', fInt], ['pro18', fInt], ['pm17', fInt], ['pm18', fInt], ['v17', f1], ['v18', f1], ['gv', fPct, 1]];
+function drawTree(R) {
+  const tb = d3.select('#tbl-tree tbody').html('');
+  const cmp = state.sort === 'du' ? (a, b) => a.du - b.du : (a, b) => b[state.sort] - a[state.sort];
+  const nums = (tr, r) => TNUM.forEach(([k, f, s]) => tr.append('td').text(f(r[k])).classed('up', s && r[k] > 0).classed('down', s && r[k] < 0));
+  const group = (r, label, id, level, kind) => {
+    const open = !state.closed.has(id);
+    const tr = tb.append('tr').attr('class', 'grp lvl' + level).attr('aria-expanded', open);
+    tr.append('td').attr('class', 'l i' + level).text((open ? '▾ ' : '▸ ') + label);
+    tr.append('td').attr('class', 'l').text(kind); tr.append('td'); tr.append('td');
+    nums(tr, r); tr.append('td');
+    tr.on('click', () => { state.closed.has(id) ? state.closed.delete(id) : state.closed.add(id); drawTree(rows()); });
+    return open;
+  };
+  const lobs = d3.groups(R, (r) => r.lob).map(([k, rs]) => ({k, rs, a: Object.assign(agg(rs), {})}));
+  lobs.sort((A, B) => cmp(A.a, B.a));
+  for (const L of lobs) {
+    if (!group(L.a, L.k, 'L|' + L.k, 0, 'LOB')) continue;
+    const tshs = d3.groups(L.rs, (r) => r.tsh).map(([k, rs]) => ({k, rs, a: agg(rs)})).sort((A, B) => cmp(A.a, B.a));
+    for (const T of tshs) {
+      if (!group(T.a, T.k, 'T|' + T.k, 1, 'TSH')) continue;
+      for (const r of T.rs.map((r) => Object.assign(r, {du: r.u18 - r.u17, gu: gr(r.u18, r.u17), gv: gr(r.v18, r.v17)})).sort(cmp)) {
+        const tr = tb.append('tr');
+        tr.append('td').attr('class', 'l i2').text(r.sn);
+        tr.append('td').attr('class', 'l').text(r.sc); tr.append('td').attr('class', 'l').text(r.ch); tr.append('td').attr('class', 'l').text(r.st);
+        nums(tr, r);
+        const flag = r.st === 'Closed' ? 'Closed store' : r.st !== 'Active' ? 'Exhibition' : !r.u17 ? 'New in iP18 window' : !r.u18 ? 'No iP18 sales' : '';
+        tr.append('td').attr('class', 'l flag').text(flag);
+      }
+    }
+  }
+  const t = agg(R); const tr = tb.append('tr').attr('class', 'tot');
+  tr.append('td').attr('class', 'l').text('TOTAL'); tr.append('td'); tr.append('td'); tr.append('td'); nums(tr, t); tr.append('td');
+}
+
+function render() {
+  drawFilters();
+  const R = rows();
+  drawSummary(R);
+  const D = daily();
+  chart($('cum-chart'), D, 'cum'); chart($('daily-chart'), D, 'daily');
+  drawBreakdown(R); drawTree(R);
+}
+
+$('f-model').addEventListener('change', (e) => { state.model = e.target.value; render(); });
+$('f-bu').addEventListener('change', (e) => { state.bu = e.target.value; state.lob = ''; state.tsh = ''; render(); });
+$('f-lob').addEventListener('change', (e) => { state.lob = e.target.value; state.tsh = ''; render(); });
+$('f-tsh').addEventListener('change', (e) => { state.tsh = e.target.value; render(); });
+$('f-reset').addEventListener('click', () => { Object.assign(state, {model: '', bu: '', lob: '', tsh: ''}); render(); });
+$('view-select').addEventListener('change', (e) => { state.view = e.target.value; drawBreakdown(rows()); });
+$('store-sort').addEventListener('change', (e) => { state.sort = e.target.value; drawTree(rows()); });
+document.querySelectorAll('[data-tree]').forEach((b) => b.addEventListener('click', () => {
+  const R = rows(), mode = b.dataset.tree;
+  state.closed = new Set(mode === 'all' ? [] : mode === 'lob' ? [...new Set(R.map((r) => 'L|' + r.lob))] : [...new Set(R.map((r) => 'T|' + r.tsh))]);
+  drawTree(R);
+}));
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { const D = daily(); chart($('cum-chart'), D, 'cum'); chart($('daily-chart'), D, 'daily'); }, 150); });
+
+fetch('data/data.json').then((r) => r.json()).then((d) => {
+  DATA = d;
+  $('gen-date').textContent = d.meta.generated;
+  $('subtitle').textContent = 'Erajaya Region 5 retail · Non PO device sales · Pro and Pro Max only · iPhone 17: ' + d.meta.launch17 + ' – ' + d.meta.end17 + ' · iPhone 18: ' + d.meta.launch18 + ' – ' + d.meta.end18 + ' (' + d.meta.window_days + ' selling days each)';
+  $('footer').textContent = 'Snapshot ' + d.meta.generated + ' · ' + d.meta.source;
+  render();
+}).catch((e) => { $('takeaway').textContent = 'Could not load data/data.json: ' + e.message; });
+</script>
+</body>
+</html>
